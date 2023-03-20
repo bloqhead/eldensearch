@@ -1,6 +1,9 @@
 <template>
   <div class="search">
     <div>
+      <label for="search">
+        Weapon Search
+      </label>
       <input
         type="search"
         name="search"
@@ -11,9 +14,12 @@
       >
     </div>
     <div>
+      <label for="categories">
+        Weapon Category
+      </label>
       <select
-        name="items"
-        id="items"
+        name="categories"
+        id="categories"
         :disabled="!(items && items.length > 0)"
         @change="selectItem"
       >
@@ -37,7 +43,10 @@ defineProps({
   },
 })
 
-const emit = defineEmits(['search', 'pick-category'])
+const emit = defineEmits([
+  'search',
+  'pick-category',
+])
 
 const runSearch = (ev: Event) => {
   const output = (ev.currentTarget as HTMLInputElement).value
@@ -53,14 +62,40 @@ const selectItem = (ev: Event) => {
 <style scoped>
 .search {
   @apply 
-    xl:flex
-    xl:items-center
-    xl:gap-4
-    mb-4;
+    flex
+    flex-col
+    md:flex-row
+    items-center
+    gap-4
+    mb-4
+    lg:mb-0;
 }
 
 .search > div {
-  @apply xl:flex xl:items-stretch xl:flex-1;
+  @apply
+    flex
+    flex-col
+    gap-2
+    md:flex-1
+    w-full
+    md:w-auto;
+}
+
+.search label {
+  @apply
+    flex
+    items-center
+    gap-2
+    font-serif
+    text-sm
+    text-slate-500
+    font-thin
+    tracking-widest
+    uppercase
+    after:block
+    after:flex-1
+    after:h-[1px]
+    after:bg-slate-500;
 }
 
 .search input[type="search"],
@@ -71,7 +106,9 @@ const selectItem = (ev: Event) => {
     w-full
     p-4
     m-0
-    bg-amber-200
+    bg-emerald-600
+    hover:bg-emerald-500
+    transition-all
     rounded-md
     border-0
     outline-0

@@ -20,9 +20,9 @@ import type { Ref } from 'vue'
 import Search from './components/Search.vue'
 import List from './components/List.vue'
 
-const query = ref('')
-const categories = ref<String[]>([])
-const items = reactive<Ref>([])
+const query = ref<String>('')
+const categories: Ref = ref<Ref>([])
+const items: Ref = reactive<Ref>([])
 const error = ref<Boolean>(false)
 
 const api = 'https://demigods.vercel.app/v1'
@@ -94,6 +94,13 @@ main {
 }
 
 .search-wrap {
-  @apply sticky top-0 py-4 bg-white;
+  @apply
+    sticky
+    z-10
+    top-0
+    p-4
+    mb-4
+    bg-slate-800
+    rounded-xl;
 }
 </style>
