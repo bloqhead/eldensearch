@@ -114,6 +114,8 @@ const runSearch = (ev: string) => {
 }
 
 const fetchCategories = async () => {
+  pageNumber.value = 0
+
   await fetch(categoriesEndpoint)
     .then((res) => res.json())
     .then((data) => categories.value = data)
@@ -121,6 +123,7 @@ const fetchCategories = async () => {
 
 const fetchAll = async () => {
   loading.value = true
+  pageNumber.value = 0
 
   await fetch(`${api}/all`)
     .then((res) => res.json())
@@ -138,6 +141,7 @@ const fetchAll = async () => {
 
 const fetchByCategory = async (cat: String) => {
   loading.value = true
+  pageNumber.value = 0
 
   await fetch(`${api}/${cat}`)
     .then((res) => res.json())
