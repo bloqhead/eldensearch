@@ -1,7 +1,8 @@
 <template>
   <div class="list">
+    <loading v-if="loading" @retry="$emit('retry')" />
     <ul
-      v-if="items && items.length > 0"
+      v-else-if="loading === false && (items && items.length > 0)"
       class="list-items"
     >
       <li
@@ -11,80 +12,114 @@
         :style="`--i: ${idx}`"
       >
         <header>
-          <h3 class="title">
-            {{ item.weapon }}
-          </h3>
-          <span
+          <div class="title-wrap">
+            <h3 class="title">
+              {{ item.weapon }}
+            </h3>
+            <h4 class="sub-title" title="Attack">
+              <span>
+                <fa :icon="['fasr', 'sword']" />
+              </span>
+              <span>
+                {{ item?.skill ? item.skill : 'None' }}
+              </span>
+            </h4>
+          </div>
+          <div
             v-if="item.tier"
             class="tier"
           >
             {{ item.tier }}
-          </span>
+          </div>
         </header>
-        <div
-          v-if="item.scaling && item.scaling.length > 0"
-          class="scaling"
-        >
-          <h4 class="section-title">
-            Scaling
-          </h4>
-          <ul>
-            <li
-              v-for="(scale, idx2) in item.scaling"
-              :key="idx2"
-            >
-              <template
-                v-for="(value, name) in scale"
-                :key="name"
-              >
-                <h5 class="scaling-label">
-                  {{ name }}
-                </h5>
-                <p class="scaling-value">
-                  {{ value }}
-                </p>
-              </template>
-            </li>
-          </ul>
-        </div>
-        <div>
-          <h4 class="section-title">
-            Stats
-          </h4>
-          <div class="stats">
+        <div class="content">
+          <div
+            v-if="item.scaling && item.scaling.length > 0"
+            class="scaling"
+          >
+            <h4 class="section-title">
+              Scaling
+            </h4>
             <ul>
               <li
-                v-for="(value, stat) in item.stats"
-                :key="stat"
-                :title="stat"
-                class="stat"
+                v-for="(scale, idx2) in item.scaling"
+                :key="idx2"
               >
-                <span>
-                  <fa
-                    v-if="iconHandler(stat).length > 0"
-                    :icon="iconHandler(stat)"
-                  />
-                </span>
-                <span>
-                  {{ value }}
-                </span>
+                <template
+                  v-if="Object.keys(scale).length > 0"
+                  v-for="(value, name) in scale"
+                  :key="name"
+                >
+                  <h5
+                    v-if="name"
+                    class="scaling-label"
+                  >
+                    {{ name }}
+                  </h5>
+                  <p
+                    v-if="value"
+                    class="scaling-value"
+                  >
+                    {{ value }}
+                  </p>
+                </template>
+                <empty v-else>
+                  <p>No Stats data.</p>
+                </empty>
               </li>
             </ul>
+          </div>
+          <div>
+            <h4 class="section-title">
+              Stats
+            </h4>
+            <div
+              v-if="item.stats && Object.entries(item.stats).length > 0"
+              class="stats"
+            >
+              <ul>
+                <li
+                  v-for="(value, stat) in item.stats"
+                  :key="stat"
+                  class="stat"
+                >
+                  <span>
+                    <fa
+                      v-if="iconHandler(stat).length > 0"
+                      :icon="iconHandler(stat)"
+                    />
+                  </span>
+                  <span :class="{ 'is-null': value === 0 }">
+                    {{ value }}
+                  </span>
+                </li>
+              </ul>
+            </div>
+            <empty v-else>
+              <p>No Stats data.</p>
+            </empty>
           </div>
         </div>
       </li>
     </ul>
-    <div v-else>
+    <empty v-else>
       <p>No items found.</p>
-    </div>
+    </empty>
   </div>
 </template>
 
 <script setup lang="ts">
+import Empty from './Empty.vue'
+import Loading from './Loading.vue'
+
 defineProps({
   items: {
     type: Object,
     required: false,
+  },
+  loading: {
+    type: Boolean,
+    default: true,
   },
 })
 
@@ -135,28 +170,36 @@ const iconHandler = (name: String | Number) => {
 
 .title {
   @apply
-    text-xl
-    md:text-2xl;
+    text-lg
+    md:text-xl;
+}
+
+.sub-title {
+  @apply
+    flex
+    items-center
+    gap-2
+    mt-2
+    pt-2
+    border-t
+    border-t-slate-500
+    font-serif
+    text-sm
+    text-slate-400
+    lg:text-base;
 }
 
 .list-items header {
   @apply
     flex
-    justify-between
     items-center
+    gap-4
     px-6
     py-2
-    mb-2
-    -mt-4
-    -ml-4
-    -mr-4
-    md:-mt-6
-    md:-ml-6
-    md:-mr-6
     bg-slate-700;
 }
 
-.tier {
+.list-items .tier {
   @apply
     font-serif
     text-xl
@@ -167,11 +210,21 @@ const iconHandler = (name: String | Number) => {
     rounded-md;
 }
 
+.list-items .title-wrap {
+  @apply flex-1;
+}
+
 .list-items > li {
   @apply
-    p-4
-    md:p-6
+    rounded-md
+    overflow-hidden
     bg-slate-800;
+}
+
+.list-items .content {
+  @apply
+    p-6
+    pt-2;
 }
 
 .scaling > ul {
@@ -251,5 +304,9 @@ const iconHandler = (name: String | Number) => {
     first:border-slate-800
     first:text-emerald-500
     last:font-mono;
+}
+
+.is-null {
+  @apply text-slate-500;
 }
 </style>
