@@ -31,6 +31,19 @@
         :items="filteredItems"
         @retry="fetchAll"
       />
+      <div class="mt-2 md:mt-4">
+        <pagination
+          :page-number="pageNumber"
+          :page-count="pageCount"
+          @next-page="nextPage"
+          @prev-page="prevPage"
+        />
+      </div>
+    </div>
+    <div class="page-footer">
+      <div>
+        <p>Elden Ring is property of <a href="" target="_blank">Bandai Namco</a>. This project is unofficial.</p>
+      </div>
     </div>
   </main>
 </template>
@@ -185,19 +198,26 @@ main {
 }
 
 .page-header .menu a {
+  @apply block;
+}
+
+.page-footer {
   @apply
-    block
-    text-emerald-500
-    hover:text-emerald-400
-    focus:text-emerald-400
-    underline;
+    p-4
+    mt-4
+    border-t
+    border-slate-800
+    text-center
+    text-xs
+    text-slate-500;
 }
 
 .search-wrap {
   @apply
     flex
     flex-col
-    gap-4
+    gap-2
+    md:gap-4
     sticky
     z-10
     top-0

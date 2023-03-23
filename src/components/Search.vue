@@ -66,9 +66,8 @@ const selectItem = (ev: Event) => {
     flex-col
     sm:flex-row
     items-center
-    gap-4
-    mb-4
-    lg:mb-0;
+    gap-2
+    md:gap-4;
 }
 
 .search > div {

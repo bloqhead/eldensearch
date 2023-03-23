@@ -59,3 +59,11 @@ select {
     placeholder:text-black
     placeholder:italic;
 }
+
+a {
+  @apply
+    text-emerald-500
+    hover:text-emerald-400
+    focus:text-emerald-400
+    underline;
+}
