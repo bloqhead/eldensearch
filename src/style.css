@@ -32,3 +32,29 @@ body {
     py-1
     text-sm;
 }
+
+input[type="text"],
+input[type="phone"],
+input[type="email"],
+input[type="password"],
+input[type="search"],
+select {
+  @apply
+    block
+    appearance-none
+    w-full
+    h-10
+    md:h-12
+    p-2
+    md:p-4
+    m-0
+    bg-emerald-600
+    hover:bg-emerald-500
+    transition-all
+    rounded-md
+    border-0
+    outline-0
+    text-black
+    placeholder:text-black
+    placeholder:italic;
+}

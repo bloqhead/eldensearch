@@ -10,7 +10,7 @@
         </slot>
         <div v-if="expired">
           <button
-            class="btn"
+            class="btn mt-4"
             @click="reload()"
           >
             Reload

@@ -18,29 +18,12 @@
         @search="runSearch"
         @pick-category="fetchByCategory"
       />
-      <div class="pagination">
-        <div>
-          <button
-            class="btn sm"
-            :disabled="!(pageNumber > 0)"
-            @click="prevPage"
-          >
-              &larr;
-          </button>
-        </div>
-        <div>
-          <p>{{ pagePlace }}</p>
-        </div>
-        <div>
-          <button
-            class="btn sm"
-            :disabled="!(pageNumber < pageCount -1)"
-            @click="nextPage"
-          >
-              &rarr;
-          </button>
-        </div>
-      </div>
+      <pagination
+        :page-number="pageNumber"
+        :page-count="pageCount"
+        @next-page="nextPage"
+        @prev-page="prevPage"
+      />
     </div>
     <div class="list-wrap">
       <list
@@ -58,11 +41,12 @@ import type { Ref } from 'vue'
 import type { Weapon } from './types'
 import Search from './components/Search.vue'
 import List from './components/List.vue'
+import Pagination from './components/Pagination.vue'
 
 const query: Ref = ref<String>('')
 const categories: Ref = ref<Ref[]>([])
 const items: Ref = ref<Ref[]>([])
-const error = ref<Boolean>(false)
+const error: Ref = ref<Boolean>(false)
 const loading: Ref = ref<Boolean>(true)
 const pageSize: Ref = ref<Number>(12)
 const pageNumber: Ref = ref<Number>(0)
@@ -89,10 +73,6 @@ const pageCount = computed(() => {
   const size = pageSize.value
 
   return Math.ceil(count / size)
-})
-
-const pagePlace = computed(() => {
-  return `Page ${pageNumber.value + 1} of ${pageCount.value}`
 })
 
 const prevPage = () => {
@@ -177,9 +157,12 @@ main {
 .page-header {
   @apply
     flex
+    flex-col
+    sm:flex-row
     items-center
     justify-between
-    p-4
+    p-2
+    sm:p-4
     rounded-md
     bg-slate-900;
 }
@@ -188,9 +171,9 @@ main {
   @apply
     font-serif
     font-normal
-    text-lg
+    text-base
     md:text-xl
-    text-amber-500;
+    text-emerald-500;
 }
 
 .page-header .menu {
@@ -204,9 +187,9 @@ main {
 .page-header .menu a {
   @apply
     block
-    text-amber-500
-    hover:text-amber-400
-    focus:text-amber-400
+    text-emerald-500
+    hover:text-emerald-400
+    focus:text-emerald-400
     underline;
 }
 
@@ -222,13 +205,5 @@ main {
     mb-4
     bg-slate-800
     rounded-xl;
-}
-
-.pagination {
-  @apply
-    flex
-    items-center
-    justify-center
-    gap-4;
 }
 </style>

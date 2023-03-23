@@ -2,7 +2,7 @@
   <div class="search">
     <div>
       <label for="search">
-        Weapon Search
+        Search
       </label>
       <input
         type="search"
@@ -15,7 +15,7 @@
     </div>
     <div>
       <label for="categories">
-        Weapon Category
+        Category
       </label>
       <select
         name="categories"
@@ -64,7 +64,7 @@ const selectItem = (ev: Event) => {
   @apply 
     flex
     flex-col
-    md:flex-row
+    sm:flex-row
     items-center
     gap-4
     mb-4
@@ -96,24 +96,5 @@ const selectItem = (ev: Event) => {
     after:flex-1
     after:h-[1px]
     after:bg-slate-500;
-}
-
-.search input[type="search"],
-.search select {
-  @apply
-    block
-    h-14
-    w-full
-    p-4
-    m-0
-    bg-emerald-600
-    hover:bg-emerald-500
-    transition-all
-    rounded-md
-    border-0
-    outline-0
-    text-black
-    placeholder:text-black
-    placeholder:italic;
 }
 </style>
