@@ -42,7 +42,7 @@
     </div>
     <div class="page-footer">
       <div>
-        <p>Elden Ring is property of <a href="" target="_blank">Bandai Namco</a>. This project is unofficial.</p>
+        <p>Elden Ring is property of <a href="https://www.bandainamcoent.com/" target="_blank">Bandai Namco</a>. This project is unofficial.</p>
       </div>
     </div>
   </main>
