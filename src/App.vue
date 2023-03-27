@@ -56,6 +56,7 @@ import Search from './components/Search.vue'
 import List from './components/List.vue'
 import Pagination from './components/Pagination.vue'
 
+const rand: Ref = ref<String>('')
 const query: Ref = ref<String>('')
 const categories: Ref = ref<Ref[]>([])
 const items: Ref = ref<Ref[]>([])
@@ -66,6 +67,10 @@ const pageNumber: Ref = ref<Number>(0)
 
 const api = 'https://demigods.vercel.app/v1'
 const categoriesEndpoint = `${api}/categories`
+
+const cacheBuster = () => {
+  rand.value = Math.round(new Date().getTime() / 1000)
+}
 
 const filteredItems = computed(() => {
   const filter = query.value
@@ -109,6 +114,8 @@ const runSearch = (ev: string) => {
 const fetchCategories = async () => {
   pageNumber.value = 0
 
+  await cacheBuster()
+
   await fetch(categoriesEndpoint)
     .then((res) => res.json())
     .then((data) => categories.value = data)
@@ -118,7 +125,9 @@ const fetchAll = async () => {
   loading.value = true
   pageNumber.value = 0
 
-  await fetch(`${api}/all`)
+  await cacheBuster()
+
+  await fetch(`${api}/all?cb=${rand.value}`)
     .then((res) => res.json())
     .then((data) => {
       if (data && data?.status === 'success') {
@@ -136,7 +145,9 @@ const fetchByCategory = async (cat: String) => {
   loading.value = true
   pageNumber.value = 0
 
-  await fetch(`${api}/${cat}`)
+  await cacheBuster()
+
+  await fetch(`${api}/${cat}?cb=${rand.value}`)
     .then((res) => res.json())
     .then((data) => {
       if (data && data?.status === 'success') {
