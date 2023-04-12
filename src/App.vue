@@ -65,12 +65,8 @@ const loading: Ref = ref<Boolean>(true)
 const pageSize: Ref = ref<Number>(12)
 const pageNumber: Ref = ref<Number>(0)
 
-const api = 'https://demigods.vercel.app/v1'
+const api = 'https://demigods-golang.vercel.app/api'
 const categoriesEndpoint = `${api}/categories`
-
-const cacheBuster = () => {
-  rand.value = Math.round(new Date().getTime() / 1000)
-}
 
 const filteredItems = computed(() => {
   const filter = query.value
@@ -114,8 +110,6 @@ const runSearch = (ev: string) => {
 const fetchCategories = async () => {
   pageNumber.value = 0
 
-  await cacheBuster()
-
   await fetch(categoriesEndpoint)
     .then((res) => res.json())
     .then((data) => categories.value = data)
@@ -125,13 +119,11 @@ const fetchAll = async () => {
   loading.value = true
   pageNumber.value = 0
 
-  await cacheBuster()
-
-  await fetch(`${api}/all?cb=${rand.value}`)
+  await fetch(`${api}/all`)
     .then((res) => res.json())
     .then((data) => {
-      if (data && data?.status === 'success') {
-        items.value = data.data
+      if (data && data.length > 0) {
+        items.value = data
       } else {
         items.value = []
         error.value = true
@@ -145,13 +137,11 @@ const fetchByCategory = async (cat: String) => {
   loading.value = true
   pageNumber.value = 0
 
-  await cacheBuster()
-
-  await fetch(`${api}/${cat}?cb=${rand.value}`)
+  await fetch(`${api}/category/${cat}`)
     .then((res) => res.json())
     .then((data) => {
-      if (data && data?.status === 'success') {
-        items.value = data.data
+      if (data && data.length > 0) {
+        items.value = data
       } else {
         items.value = []
         error.value = true

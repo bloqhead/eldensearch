@@ -38,7 +38,7 @@
 <script setup lang="ts">
 defineProps({
   items: {
-    type: Object,
+    type: [Array, Object],
     required: false,
   },
 })
