@@ -7,7 +7,7 @@
         </div>
         <div>
           <ul class="menu">
-            <li><a href="https://github.com/bloqhead/demigods" target="_blank">Demigods API</a></li>
+            <li><a href="https://github.com/bloqhead/demigods.go" target="_blank">Demigods Golang API</a></li>
             <li><a href="https://github.com/bloqhead/eldensearch/compare" target="_blank">Contribute</a></li>
           </ul>
         </div>
@@ -65,12 +65,8 @@ const loading: Ref = ref<Boolean>(true)
 const pageSize: Ref = ref<Number>(12)
 const pageNumber: Ref = ref<Number>(0)
 
-const api = 'https://demigods.vercel.app/v1'
+const api = 'https://demigods-golang.vercel.app/api'
 const categoriesEndpoint = `${api}/categories`
-
-const cacheBuster = () => {
-  rand.value = Math.round(new Date().getTime() / 1000)
-}
 
 const filteredItems = computed(() => {
   const filter = query.value
@@ -82,7 +78,7 @@ const filteredItems = computed(() => {
   }
 
   return items.value.filter((i: Weapon) => {
-    return i.weapon.toLowerCase().includes(filter.toLowerCase())
+    return i.name.toLowerCase().includes(filter.toLowerCase())
   }).slice(start, end)
 })
 
@@ -112,25 +108,37 @@ const runSearch = (ev: string) => {
 }
 
 const fetchCategories = async () => {
+  loading.value = true
   pageNumber.value = 0
-
-  await cacheBuster()
 
   await fetch(categoriesEndpoint)
     .then((res) => res.json())
-    .then((data) => categories.value = data)
+    .then((data) => {
+      if (data.success === true && data.data && data.data.length > 0) {
+        categories.value = [
+          {
+            label: "All",
+            value: "all",
+          },
+          ...data.data
+        ]
+      } else {
+        categories.value = []
+        error.value = true
+      }
+
+      loading.value = false
+    })
 }
 
 const fetchAll = async () => {
   loading.value = true
   pageNumber.value = 0
 
-  await cacheBuster()
-
-  await fetch(`${api}/all?cb=${rand.value}`)
+  await fetch(`${api}/all`)
     .then((res) => res.json())
     .then((data) => {
-      if (data && data?.status === 'success') {
+      if (data.success === true && data.data && data.data.length > 0) {
         items.value = data.data
       } else {
         items.value = []
@@ -145,20 +153,22 @@ const fetchByCategory = async (cat: String) => {
   loading.value = true
   pageNumber.value = 0
 
-  await cacheBuster()
+  if (cat === 'all') {
+    fetchAll()
+  } else {
+    await fetch(`${api}/category/${cat}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success === true && data.data && data.data.length > 0) {
+          items.value = data.data
+        } else {
+          items.value = []
+          error.value = true
+        }
 
-  await fetch(`${api}/${cat}?cb=${rand.value}`)
-    .then((res) => res.json())
-    .then((data) => {
-      if (data && data?.status === 'success') {
-        items.value = data.data
-      } else {
-        items.value = []
-        error.value = true
-      }
-
-      loading.value = false
-    })
+        loading.value = false
+      })
+  }
 }
 
 onMounted(() => {
@@ -209,7 +219,12 @@ main {
 }
 
 .page-header .menu a {
-  @apply block;
+  @apply block no-underline;
+}
+
+.page-header .menu a:hover,
+.page-header .menu a:focus {
+  @apply underline;
 }
 
 .page-footer {

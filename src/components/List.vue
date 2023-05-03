@@ -14,7 +14,7 @@
         <header>
           <div class="title-wrap">
             <h3 class="title">
-              {{ item.weapon }}
+              {{ item.name }}
             </h3>
             <h4 class="sub-title" title="Attack">
               <span>
@@ -33,41 +33,32 @@
           </div>
         </header>
         <div class="content">
-          <div
-            v-if="item.scaling && item.scaling.length > 0"
-            class="scaling"
-          >
+          <div class="scaling">
             <h4 class="section-title">
               Scaling
             </h4>
-            <ul>
+            <ul v-if="item.scaling && Object.entries(item.scaling).length > 0">
               <li
-                v-for="(scale, idx2) in item.scaling"
-                :key="idx2"
+                v-for="(value, label) in item.scaling"
+                :key="label"
               >
-                <template
-                  v-if="Object.keys(scale).length > 0"
-                  v-for="(value, name) in scale"
-                  :key="name"
+                <h5
+                  v-if="label"
+                  class="scaling-label"
                 >
-                  <h5
-                    v-if="name"
-                    class="scaling-label"
-                  >
-                    {{ name }}
-                  </h5>
-                  <p
-                    v-if="value"
-                    class="scaling-value"
-                  >
-                    {{ value }}
-                  </p>
-                </template>
-                <empty v-else>
-                  <p>No Stats data.</p>
-                </empty>
+                  {{ label }}
+                </h5>
+                <p
+                  v-if="value"
+                  class="scaling-value"
+                >
+                  {{ value }}
+                </p>
               </li>
             </ul>
+            <empty v-else>
+              <p>No Scaling data.</p>
+            </empty>
           </div>
           <div>
             <h4 class="section-title">
