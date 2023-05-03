@@ -108,13 +108,20 @@ const runSearch = (ev: string) => {
 }
 
 const fetchCategories = async () => {
+  loading.value = true
   pageNumber.value = 0
 
   await fetch(categoriesEndpoint)
     .then((res) => res.json())
     .then((data) => {
       if (data.success === true && data.data && data.data.length > 0) {
-        categories.value = data.data
+        categories.value = [
+          {
+            label: "All",
+            value: "all",
+          },
+          ...data.data
+        ]
       } else {
         categories.value = []
         error.value = true
@@ -146,18 +153,22 @@ const fetchByCategory = async (cat: String) => {
   loading.value = true
   pageNumber.value = 0
 
-  await fetch(`${api}/category/${cat}`)
-    .then((res) => res.json())
-    .then((data) => {
-      if (data.success === true && data.data && data.data.length > 0) {
-        items.value = data.data
-      } else {
-        items.value = []
-        error.value = true
-      }
+  if (cat === 'all') {
+    fetchAll()
+  } else {
+    await fetch(`${api}/category/${cat}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success === true && data.data && data.data.length > 0) {
+          items.value = data.data
+        } else {
+          items.value = []
+          error.value = true
+        }
 
-      loading.value = false
-    })
+        loading.value = false
+      })
+  }
 }
 
 onMounted(() => {
