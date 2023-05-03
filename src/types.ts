@@ -1,6 +1,6 @@
 export type Weapon = {
   id: number
-  weapon: string
+  name: string
   tier: string
   scaling: [
     {

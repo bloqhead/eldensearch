@@ -7,7 +7,7 @@
         </div>
         <div>
           <ul class="menu">
-            <li><a href="https://github.com/bloqhead/demigods" target="_blank">Demigods API</a></li>
+            <li><a href="https://github.com/bloqhead/demigods.go" target="_blank">Demigods Golang API</a></li>
             <li><a href="https://github.com/bloqhead/eldensearch/compare" target="_blank">Contribute</a></li>
           </ul>
         </div>
@@ -78,7 +78,7 @@ const filteredItems = computed(() => {
   }
 
   return items.value.filter((i: Weapon) => {
-    return i.weapon.toLowerCase().includes(filter.toLowerCase())
+    return i.name.toLowerCase().includes(filter.toLowerCase())
   }).slice(start, end)
 })
 
@@ -112,7 +112,16 @@ const fetchCategories = async () => {
 
   await fetch(categoriesEndpoint)
     .then((res) => res.json())
-    .then((data) => categories.value = data)
+    .then((data) => {
+      if (data.success === true && data.data && data.data.length > 0) {
+        categories.value = data.data
+      } else {
+        categories.value = []
+        error.value = true
+      }
+
+      loading.value = false
+    })
 }
 
 const fetchAll = async () => {
@@ -122,8 +131,8 @@ const fetchAll = async () => {
   await fetch(`${api}/all`)
     .then((res) => res.json())
     .then((data) => {
-      if (data && data.length > 0) {
-        items.value = data
+      if (data.success === true && data.data && data.data.length > 0) {
+        items.value = data.data
       } else {
         items.value = []
         error.value = true
@@ -140,8 +149,8 @@ const fetchByCategory = async (cat: String) => {
   await fetch(`${api}/category/${cat}`)
     .then((res) => res.json())
     .then((data) => {
-      if (data && data.length > 0) {
-        items.value = data
+      if (data.success === true && data.data && data.data.length > 0) {
+        items.value = data.data
       } else {
         items.value = []
         error.value = true
@@ -199,7 +208,12 @@ main {
 }
 
 .page-header .menu a {
-  @apply block;
+  @apply block no-underline;
+}
+
+.page-header .menu a:hover,
+.page-header .menu a:focus {
+  @apply underline;
 }
 
 .page-footer {
