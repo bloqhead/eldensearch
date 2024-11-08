@@ -65,7 +65,7 @@ const loading: Ref = ref<Boolean>(true)
 const pageSize: Ref = ref<Number>(12)
 const pageNumber: Ref = ref<Number>(0)
 
-const api = 'https://demigods-golang.vercel.app/api'
+const api = 'https://demigods.onrender.com/api'
 const categoriesEndpoint = `${api}/categories`
 
 const filteredItems = computed(() => {
