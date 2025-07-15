@@ -1,0 +1,157 @@
+[
+  {
+    "id": "all",
+    "label": "All Weapons",
+    "value": "all"
+  },
+  {
+    "id": "straight_swords",
+    "label": "Straight Swords",
+    "value": "straight_swords"
+  },
+  {
+    "id": "greatswords",
+    "label": "Greatswords",
+    "value": "greatswords"
+  },
+  {
+    "id": "colossal_swords",
+    "label": "Colossal Swords",
+    "value": "colossal_swords"
+  },
+  {
+    "id": "thrusting_swords",
+    "label": "Thrusting Swords",
+    "value": "thrusting_swords"
+  },
+  {
+    "id": "heavy_thrusting_swords",
+    "label": "Heavy Thrusting Swords",
+    "value": "heavy_thrusting_swords"
+  },
+  {
+    "id": "curved_swords",
+    "label": "Curved Swords",
+    "value": "curved_swords"
+  },
+  {
+    "id": "curved_greatswords",
+    "label": "Curved Greatswords",
+    "value": "curved_greatswords"
+  },
+  {
+    "id": "katanas",
+    "label": "Katanas",
+    "value": "katanas"
+  },
+  {
+    "id": "twinblades",
+    "label": "Twinblades",
+    "value": "twinblades"
+  },
+  {
+    "id": "axes",
+    "label": "Axes",
+    "value": "axes"
+  },
+  {
+    "id": "greataxes",
+    "label": "Greataxes",
+    "value": "greataxes"
+  },
+  {
+    "id": "hammers",
+    "label": "Hammers",
+    "value": "hammers"
+  },
+  {
+    "id": "flails",
+    "label": "Flails",
+    "value": "flails"
+  },
+  {
+    "id": "great_hammers",
+    "label": "Great Hammers",
+    "value": "great_hammers"
+  },
+  {
+    "id": "colossal_weapons",
+    "label": "Colossal Weapons",
+    "value": "colossal_weapons"
+  },
+  {
+    "id": "spears",
+    "label": "Spears",
+    "value": "spears"
+  },
+  {
+    "id": "great_spears",
+    "label": "Great Spears",
+    "value": "great_spears"
+  },
+  {
+    "id": "halberds",
+    "label": "Halberds",
+    "value": "halberds"
+  },
+  {
+    "id": "reapers",
+    "label": "Reapers",
+    "value": "reapers"
+  },
+  {
+    "id": "whips",
+    "label": "Whips",
+    "value": "whips"
+  },
+  {
+    "id": "fists",
+    "label": "Fists",
+    "value": "fists"
+  },
+  {
+    "id": "claws",
+    "label": "Claws",
+    "value": "claws"
+  },
+  {
+    "id": "light_bows",
+    "label": "Light Bows",
+    "value": "light_bows"
+  },
+  {
+    "id": "bows",
+    "label": "Bows",
+    "value": "bows"
+  },
+  {
+    "id": "greatbows",
+    "label": "Greatbows",
+    "value": "greatbows"
+  },
+  {
+    "id": "crossbows",
+    "label": "Crossbows",
+    "value": "crossbows"
+  },
+  {
+    "id": "ballistas",
+    "label": "Ballistas",
+    "value": "ballistas"
+  },
+  {
+    "id": "glintstone_staffs",
+    "label": "Glintstone Staffs",
+    "value": "glintstone_staffs"
+  },
+  {
+    "id": "sacred_seals",
+    "label": "Sacred Seals",
+    "value": "sacred_seals"
+  },
+  {
+    "id": "torches",
+    "label": "Torches",
+    "value": "torches"
+  }
+]

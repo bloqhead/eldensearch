@@ -51,21 +51,22 @@
 <script setup lang="ts">
 import { onMounted, ref, computed } from 'vue'
 import type { Ref } from 'vue'
-import type { Weapon } from './types'
+import type { Weapon, Category, APIResponse } from './types'
 import Search from './components/Search.vue'
 import List from './components/List.vue'
 import Pagination from './components/Pagination.vue'
 
 const rand: Ref = ref<String>('')
 const query: Ref = ref<String>('')
-const categories: Ref = ref<Ref[]>([])
-const items: Ref = ref<Ref[]>([])
+const categories: Ref = ref<Category[]>([])
+const items: Ref = ref<Weapon[]>([])
 const error: Ref = ref<Boolean>(false)
 const loading: Ref = ref<Boolean>(true)
 const pageSize: Ref = ref<Number>(12)
 const pageNumber: Ref = ref<Number>(0)
 
-const api = 'https://demigods.onrender.com/api'
+// Update API endpoint to local backend
+const api = 'http://localhost:8080/api'
 const categoriesEndpoint = `${api}/categories`
 
 const filteredItems = computed(() => {
@@ -111,42 +112,51 @@ const fetchCategories = async () => {
   loading.value = true
   pageNumber.value = 0
 
-  await fetch(categoriesEndpoint)
-    .then((res) => res.json())
-    .then((data) => {
-      if (data.success === true && data.data && data.data.length > 0) {
-        categories.value = [
-          {
-            label: "All",
-            value: "all",
-          },
-          ...data.data
-        ]
-      } else {
-        categories.value = []
-        error.value = true
-      }
-
-      loading.value = false
-    })
+  try {
+    const response = await fetch(categoriesEndpoint)
+    const data: APIResponse<Category[]> = await response.json()
+    
+    if (data.success && data.data && data.data.length > 0) {
+      categories.value = [
+        {
+          id: "all",
+          label: "All Weapons",
+          value: "all",
+        },
+        ...data.data
+      ]
+    } else {
+      categories.value = []
+      error.value = true
+    }
+  } catch (err) {
+    console.error('Error fetching categories:', err)
+    error.value = true
+  } finally {
+    loading.value = false
+  }
 }
 
 const fetchAll = async () => {
   loading.value = true
   pageNumber.value = 0
 
-  await fetch(`${api}/all`)
-    .then((res) => res.json())
-    .then((data) => {
-      if (data.success === true && data.data && data.data.length > 0) {
-        items.value = data.data
-      } else {
-        items.value = []
-        error.value = true
-      }
-
-      loading.value = false
-    })
+  try {
+    const response = await fetch(`${api}/all`)
+    const data: APIResponse<Weapon[]> = await response.json()
+    
+    if (data.success && data.data && data.data.length > 0) {
+      items.value = data.data
+    } else {
+      items.value = []
+      error.value = true
+    }
+  } catch (err) {
+    console.error('Error fetching weapons:', err)
+    error.value = true
+  } finally {
+    loading.value = false
+  }
 }
 
 const fetchByCategory = async (cat: String) => {
@@ -154,20 +164,24 @@ const fetchByCategory = async (cat: String) => {
   pageNumber.value = 0
 
   if (cat === 'all') {
-    fetchAll()
+    await fetchAll()
   } else {
-    await fetch(`${api}/category/${cat}`)
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.success === true && data.data && data.data.length > 0) {
-          items.value = data.data
-        } else {
-          items.value = []
-          error.value = true
-        }
-
-        loading.value = false
-      })
+    try {
+      const response = await fetch(`${api}/category/${cat}`)
+      const data: APIResponse<Weapon[]> = await response.json()
+      
+      if (data.success && data.data && data.data.length > 0) {
+        items.value = data.data
+      } else {
+        items.value = []
+        error.value = true
+      }
+    } catch (err) {
+      console.error('Error fetching weapons by category:', err)
+      error.value = true
+    } finally {
+      loading.value = false
+    }
   }
 }
 
