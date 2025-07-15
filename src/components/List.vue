@@ -39,25 +39,48 @@
             </h4>
             <ul v-if="item.scaling && Object.entries(item.scaling).length > 0">
               <li
-                v-for="(value, label) in item.scaling"
-                :key="label"
+                v-for="(value, stat) in item.scaling"
+                :key="stat"
+                v-if="value !== '-'"
               >
-                <h5
-                  v-if="label"
-                  class="scaling-label"
-                >
-                  {{ label }}
+                <h5 class="scaling-label">
+                  {{ stat.charAt(0).toUpperCase() + stat.slice(1) }}
                 </h5>
-                <p
-                  v-if="value"
-                  class="scaling-value"
-                >
+                <p class="scaling-value">
                   {{ value }}
                 </p>
               </li>
             </ul>
             <empty v-else>
               <p>No Scaling data.</p>
+            </empty>
+          </div>
+          <div>
+            <h4 class="section-title">
+              Requirements
+            </h4>
+            <div
+              v-if="item.requirements && Object.entries(item.requirements).length > 0"
+              class="requirements"
+            >
+              <ul>
+                <li
+                  v-for="(value, stat) in item.requirements"
+                  :key="stat"
+                  class="requirement"
+                  v-if="value > 0"
+                >
+                  <span class="requirement-label">
+                    {{ stat.charAt(0).toUpperCase() + stat.slice(1) }}
+                  </span>
+                  <span class="requirement-value">
+                    {{ value }}
+                  </span>
+                </li>
+              </ul>
+            </div>
+            <empty v-else>
+              <p>No Requirements data.</p>
             </empty>
           </div>
           <div>
@@ -73,6 +96,7 @@
                   v-for="(value, stat) in item.stats"
                   :key="stat"
                   class="stat"
+                  v-if="value > 0 || stat === 'critical'"
                 >
                   <span>
                     <fa
@@ -299,5 +323,35 @@ const iconHandler = (name: String | Number) => {
 
 .is-null {
   @apply text-slate-500;
+}
+
+.requirements > ul {
+  @apply
+    grid
+    grid-cols-2
+    gap-2
+    text-center;
+}
+
+.requirements > ul > li {
+  @apply
+    bg-slate-700
+    rounded-lg
+    flex
+    items-center
+    justify-center
+    border-2
+    border-slate-800;
+}
+
+.requirements > ul > li span {
+  @apply
+    flex-1
+    p-2
+    first:border-r-2
+    first:border-slate-800
+    first:text-slate-400
+    last:font-mono
+    last:text-emerald-400;
 }
 </style>
