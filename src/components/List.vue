@@ -29,7 +29,7 @@
             <ul v-if="item.scaling && Object.keys(item.scaling).length > 0">
               <li v-for="[stat, value] in getObjectEntries(item.scaling)" :key="stat" v-if="value !== '-'">
                 <h5 class="scaling-label">
-                  {{ String(stat).charAt(0).toUpperCase() + String(stat).slice(1) }}
+                  {{ getStatLabel(stat) }}
                 </h5>
                 <p class="scaling-value">
                   {{ value }}
@@ -49,7 +49,7 @@
                 <li v-for="[stat, value] in getObjectEntries(item.requirements)" :key="stat" class="requirement"
                   v-if="value > 0">
                   <span class="requirement-label">
-                    {{ String(stat).charAt(0).toUpperCase() + String(stat).slice(1) }}
+                    {{ getStatLabel(stat) }}
                   </span>
                   <span class="requirement-value">
                     {{ value }}
@@ -121,6 +121,25 @@ const iconHandler = (name: string) => {
 // Helper function to get object entries with proper typing
 const getObjectEntries = <T extends Record<string, any>>(obj: T): [string, T[keyof T]][] => {
   return Object.entries(obj) as [string, T[keyof T]][]
+}
+
+// Helper function to get shortened stat labels
+const getStatLabel = (stat: string): string => {
+  const labelMap: Record<string, string> = {
+    'strength': 'STR',
+    'dexterity': 'DEX',
+    'intelligence': 'INT',
+    'faith': 'FTH',
+    'arcane': 'ARC',
+    'physical': 'PHY',
+    'magic': 'MAG',
+    'fire': 'FIR',
+    'lightning': 'LIT',
+    'holy': 'HOL',
+    'critical': 'CRIT',
+    'guard_boost': 'GB'
+  }
+  return labelMap[stat.toLowerCase()] || stat.toUpperCase()
 }
 </script>
 
@@ -206,7 +225,7 @@ const getObjectEntries = <T extends Record<string, any>>(obj: T): [string, T[key
     auto-cols-fr
     items-center
     justify-center
-    gap-4
+    gap-2
     divide-x
     divide-slate-500
     text-center;
@@ -219,7 +238,7 @@ const getObjectEntries = <T extends Record<string, any>>(obj: T): [string, T[key
 .scaling-label {
   @apply
     uppercase
-    text-sm;
+    text-xs font-bold tracking-wide;
 }
 
 .scaling-value {
@@ -309,5 +328,8 @@ const getObjectEntries = <T extends Record<string, any>>(obj: T): [string, T[key
     first:text-slate-400
     last:font-mono
     last:text-emerald-400;
+}
+.requirement-label {
+  @apply uppercase text-xs font-bold tracking-wide;
 }
 </style>
