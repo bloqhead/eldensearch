@@ -29,6 +29,17 @@ export type Weapon = {
     critical: number
     guard_boost: number
   }
+  additional_stats?: {
+    blood_loss: number
+    frost: number
+    poison: number
+    scarlet_rot: number
+    sleep: number
+    madness: number
+    range: string
+    attack_speed: string
+    stamina_cost: string
+  }
   description: string
   location: string
   image_url?: string

@@ -16,7 +16,7 @@
             <h3 class="title">
               {{ item.name }}
             </h3>
-            <h4 class="sub-title" title="Attack">
+            <h4 class="sub-title" title="Skill">
               <span>
                 <fa :icon="['fasr', 'sword']" />
               </span>
@@ -33,6 +33,20 @@
           </div>
         </header>
         <div class="content">
+          <!-- Basic Info -->
+          <div class="basic-info">
+            <div class="info-grid">
+              <div class="info-item">
+                <span class="info-label">Type</span>
+                <span class="info-value">{{ item.type }}</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Weight</span>
+                <span class="info-value">{{ item.weight }}</span>
+              </div>
+            </div>
+          </div>
+
           <div class="scaling">
             <h4 class="section-title">
               Scaling
@@ -114,6 +128,22 @@
               <p>No Stats data.</p>
             </empty>
           </div>
+
+          <!-- Additional Stats Component -->
+          <additional-stats :weapon="item" />
+
+          <!-- Description and Location -->
+          <div class="info-section">
+            <div class="description-section">
+              <h4 class="section-title">Description</h4>
+              <p class="description">{{ item.description }}</p>
+            </div>
+            
+            <div class="location-section">
+              <h4 class="section-title">Location</h4>
+              <p class="location">{{ item.location }}</p>
+            </div>
+          </div>
         </div>
       </li>
     </ul>
@@ -126,6 +156,7 @@
 <script setup lang="ts">
 import Empty from './Empty.vue'
 import Loading from './Loading.vue'
+import AdditionalStats from './AdditionalStats.vue'
 
 defineProps({
   items: {
@@ -154,11 +185,17 @@ const iconHandler = (name: String | Number) => {
     case 'fire' : 
       icon = 'fire'
       break
-    case 'light' :
-      icon = 'lightbulb'
+    case 'lightning' :
+      icon = 'bolt'
       break
     case 'holy' :
       icon = 'book-bible'
+      break
+    case 'critical' :
+      icon = 'target'
+      break
+    case 'guard_boost' :
+      icon = 'shield'
       break
     default :
       icon = ''
@@ -239,7 +276,49 @@ const iconHandler = (name: String | Number) => {
 .list-items .content {
   @apply
     p-6
-    pt-2;
+    pt-2
+    space-y-4;
+}
+
+.basic-info {
+  @apply
+    border-b
+    border-slate-600
+    pb-4;
+}
+
+.info-grid {
+  @apply
+    grid
+    grid-cols-2
+    gap-3;
+}
+
+.info-item {
+  @apply
+    bg-slate-700
+    rounded-lg
+    p-2
+    flex
+    justify-between
+    items-center
+    border
+    border-slate-600;
+}
+
+.info-label {
+  @apply
+    text-xs
+    text-slate-400
+    font-medium;
+}
+
+.info-value {
+  @apply
+    text-emerald-400
+    font-mono
+    text-sm
+    font-semibold;
 }
 
 .scaling > ul {
@@ -353,5 +432,27 @@ const iconHandler = (name: String | Number) => {
     first:text-slate-400
     last:font-mono
     last:text-emerald-400;
+}
+
+.info-section {
+  @apply
+    border-t
+    border-slate-600
+    pt-4
+    space-y-4;
+}
+
+.description {
+  @apply
+    text-sm
+    text-slate-300
+    leading-relaxed;
+}
+
+.location {
+  @apply
+    text-sm
+    text-emerald-400
+    font-medium;
 }
 </style>

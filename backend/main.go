@@ -81,10 +81,14 @@ func main() {
 }
 
 func loadData() error {
-	// Load weapons data
-	weaponsData, err := os.ReadFile("data/weapons.json")
+	// Load weapons data - try comprehensive first, fallback to original
+	weaponsData, err := os.ReadFile("data/weapons_comprehensive.json")
 	if err != nil {
-		return err
+		log.Println("Comprehensive weapons file not found, trying original weapons.json")
+		weaponsData, err = os.ReadFile("data/weapons.json")
+		if err != nil {
+			return err
+		}
 	}
 
 	if err := json.Unmarshal(weaponsData, &weapons); err != nil {

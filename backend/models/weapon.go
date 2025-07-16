@@ -14,6 +14,7 @@ type Weapon struct {
 	Requirements Requirements `json:"requirements"`
 	Scaling     Scaling   `json:"scaling"`
 	Stats       Stats     `json:"stats"`
+	AdditionalStats *AdditionalStats `json:"additional_stats,omitempty"`
 	Description string    `json:"description"`
 	Location    string    `json:"location"`
 	ImageURL    string    `json:"image_url,omitempty"`
@@ -48,6 +49,19 @@ type Stats struct {
 	Holy         int `json:"holy"`
 	Critical     int `json:"critical"`
 	GuardBoost   int `json:"guard_boost"`
+}
+
+// AdditionalStats represents additional weapon properties and status effects
+type AdditionalStats struct {
+	BloodLoss    int    `json:"blood_loss"`
+	Frost        int    `json:"frost"`
+	Poison       int    `json:"poison"`
+	ScarletRot   int    `json:"scarlet_rot"`
+	Sleep        int    `json:"sleep"`
+	Madness      int    `json:"madness"`
+	Range        string `json:"range"`
+	AttackSpeed  string `json:"attack_speed"`
+	StaminaCost  string `json:"stamina_cost"`
 }
 
 // Category represents weapon categories

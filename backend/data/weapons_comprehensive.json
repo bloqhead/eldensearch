@@ -142,6 +142,100 @@
   },
   {
     "id": 4,
+    "name": "Hand of Malenia",
+    "type": "Katana",
+    "category": "katanas",
+    "skill": "Waterfowl Dance",
+    "weight": 7.0,
+    "requirements": {
+      "strength": 16,
+      "dexterity": 48,
+      "intelligence": 0,
+      "faith": 0,
+      "arcane": 0
+    },
+    "scaling": {
+      "strength": "D",
+      "dexterity": "B",
+      "intelligence": "-",
+      "faith": "-",
+      "arcane": "-"
+    },
+    "stats": {
+      "physical": 118,
+      "magic": 0,
+      "fire": 0,
+      "lightning": 0,
+      "holy": 0,
+      "critical": 100,
+      "guard_boost": 0
+    },
+    "additional_stats": {
+      "blood_loss": 50,
+      "frost": 0,
+      "poison": 0,
+      "scarlet_rot": 0,
+      "sleep": 0,
+      "madness": 0,
+      "range": "Medium",
+      "attack_speed": "Fast",
+      "stamina_cost": "Medium"
+    },
+    "description": "Blade built into Malenia's prosthetic arm. Through consecration it is resistant to rot. Made to keep the weight light so as to not impede the swordswoman's movements.",
+    "location": "Malenia, Blade of Miquella Remembrance",
+    "image_url": "https://eldenring.wiki.fextralife.com/file/Elden-Ring/hand_of_malenia_weapon_elden_ring_wiki_guide_200px.png",
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "id": 5,
+    "name": "Meteoric Ore Blade",
+    "type": "Katana",
+    "category": "katanas",
+    "skill": "Gravitas",
+    "weight": 6.0,
+    "requirements": {
+      "strength": 15,
+      "dexterity": 14,
+      "intelligence": 18,
+      "faith": 0,
+      "arcane": 0
+    },
+    "scaling": {
+      "strength": "C",
+      "dexterity": "D",
+      "intelligence": "C",
+      "faith": "-",
+      "arcane": "-"
+    },
+    "stats": {
+      "physical": 112,
+      "magic": 72,
+      "fire": 0,
+      "lightning": 0,
+      "holy": 0,
+      "critical": 100,
+      "guard_boost": 0
+    },
+    "additional_stats": {
+      "blood_loss": 0,
+      "frost": 0,
+      "poison": 0,
+      "scarlet_rot": 0,
+      "sleep": 0,
+      "madness": 0,
+      "range": "Medium",
+      "attack_speed": "Fast",
+      "stamina_cost": "Medium"
+    },
+    "description": "A katana forged from meteoric ore to dispatch lifeforms born of falling stars. The blade is weighty, known to deliver slashes of such ferocity that the impact is said to resemble the fall of meteorites.",
+    "location": "Caelid Waypoint Ruins",
+    "image_url": "https://eldenring.wiki.fextralife.com/file/Elden-Ring/meteoric_ore_blade_weapon_elden_ring_wiki_guide_200px.png",
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "id": 6,
     "name": "Dark Moon Greatsword",
     "type": "Greatsword",
     "category": "greatswords",
@@ -188,7 +282,7 @@
     "updated_at": "2024-01-01T00:00:00Z"
   },
   {
-    "id": 5,
+    "id": 7,
     "name": "Blasphemous Blade",
     "type": "Greatsword",
     "category": "greatswords",
@@ -231,6 +325,147 @@
     "description": "Sacred sword of Rykard, Lord of Blasphemy. Remains of the countless heroes he has devoured writhe upon its surface. This sword is imbued with the power of the blasphemous serpent.",
     "location": "Rykard, Lord of Blasphemy Remembrance",
     "image_url": "https://eldenring.wiki.fextralife.com/file/Elden-Ring/blasphemous_blade_weapon_elden_ring_wiki_guide_200px.png",
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "id": 8,
+    "name": "Sacred Relic Sword",
+    "type": "Greatsword",
+    "category": "greatswords",
+    "skill": "Wave of Gold",
+    "weight": 11.0,
+    "requirements": {
+      "strength": 14,
+      "dexterity": 24,
+      "intelligence": 0,
+      "faith": 22,
+      "arcane": 0
+    },
+    "scaling": {
+      "strength": "E",
+      "dexterity": "C",
+      "intelligence": "-",
+      "faith": "D",
+      "arcane": "-"
+    },
+    "stats": {
+      "physical": 118,
+      "magic": 0,
+      "fire": 0,
+      "lightning": 0,
+      "holy": 76,
+      "critical": 100,
+      "guard_boost": 0
+    },
+    "additional_stats": {
+      "blood_loss": 0,
+      "frost": 0,
+      "poison": 0,
+      "scarlet_rot": 0,
+      "sleep": 0,
+      "madness": 0,
+      "range": "Long",
+      "attack_speed": "Medium",
+      "stamina_cost": "High"
+    },
+    "description": "Sword forged from the remains of a god who should have lived a life eternal. Thought to have been the greatsword bequeathed to him by his mother, Marika, the Eternal.",
+    "location": "Elden Beast Remembrance",
+    "image_url": "https://eldenring.wiki.fextralife.com/file/Elden-Ring/sacred_relic_sword_weapon_elden_ring_wiki_guide_200px.png",
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "id": 9,
+    "name": "Sword of Night and Flame",
+    "type": "Straight Sword",
+    "category": "straight_swords",
+    "skill": "Night-and-Flame Stance",
+    "weight": 4.0,
+    "requirements": {
+      "strength": 12,
+      "dexterity": 12,
+      "intelligence": 24,
+      "faith": 24,
+      "arcane": 0
+    },
+    "scaling": {
+      "strength": "E",
+      "dexterity": "E",
+      "intelligence": "B",
+      "faith": "B",
+      "arcane": "-"
+    },
+    "stats": {
+      "physical": 87,
+      "magic": 56,
+      "fire": 56,
+      "lightning": 0,
+      "holy": 0,
+      "critical": 100,
+      "guard_boost": 0
+    },
+    "additional_stats": {
+      "blood_loss": 0,
+      "frost": 0,
+      "poison": 0,
+      "scarlet_rot": 0,
+      "sleep": 0,
+      "madness": 0,
+      "range": "Medium",
+      "attack_speed": "Fast",
+      "stamina_cost": "Low"
+    },
+    "description": "Legendary armament of the Carian royal family. Forged by the ancient smiths of the Eternal City, this sword is imbued with the power of both night and flame.",
+    "location": "Caria Manor, Liurnia",
+    "image_url": "https://eldenring.wiki.fextralife.com/file/Elden-Ring/sword_of_night_and_flame_weapon_elden_ring_wiki_guide_200px.png",
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "id": 10,
+    "name": "Giant-Crusher",
+    "type": "Colossal Weapon",
+    "category": "colossal_weapons",
+    "skill": "Endure",
+    "weight": 26.5,
+    "requirements": {
+      "strength": 60,
+      "dexterity": 0,
+      "intelligence": 0,
+      "faith": 0,
+      "arcane": 0
+    },
+    "scaling": {
+      "strength": "A",
+      "dexterity": "-",
+      "intelligence": "-",
+      "faith": "-",
+      "arcane": "-"
+    },
+    "stats": {
+      "physical": 155,
+      "magic": 0,
+      "fire": 0,
+      "lightning": 0,
+      "holy": 0,
+      "critical": 100,
+      "guard_boost": 0
+    },
+    "additional_stats": {
+      "blood_loss": 0,
+      "frost": 0,
+      "poison": 0,
+      "scarlet_rot": 0,
+      "sleep": 0,
+      "madness": 0,
+      "range": "Short",
+      "attack_speed": "Slow",
+      "stamina_cost": "Very High"
+    },
+    "description": "A hammer made from a boulder, used in the War against the Giants. One of the heaviest of all weapons. Requires two hands to wield.",
+    "location": "Outer Wall Phantom Tree, Altus Plateau",
+    "image_url": "https://eldenring.wiki.fextralife.com/file/Elden-Ring/giant_crusher_weapon_elden_ring_wiki_guide_200px.png",
     "created_at": "2024-01-01T00:00:00Z",
     "updated_at": "2024-01-01T00:00:00Z"
   }
