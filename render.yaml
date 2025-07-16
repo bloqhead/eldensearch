@@ -1,0 +1,29 @@
+services:
+  # Backend API Service
+  - type: web
+    name: eldensearch-backend
+    env: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    plan: starter
+    envVars:
+      - key: GIN_MODE
+        value: release
+      - key: PORT
+        value: 7342
+    healthCheckPath: /health
+    autoDeploy: true
+
+  # Frontend Service
+  - type: web
+    name: eldensearch-frontend
+    env: docker
+    dockerfilePath: ./Dockerfile.frontend
+    dockerContext: .
+    plan: starter
+    envVars:
+      - key: FONTAWESOME_TOKEN
+        sync: false  # This will be set manually in Render dashboard
+      - key: VITE_API_URL
+        value: https://eldensearch-backend.onrender.com
+    autoDeploy: true 
