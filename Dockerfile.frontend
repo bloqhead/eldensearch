@@ -5,13 +5,25 @@ FROM node:18-alpine AS builder
 WORKDIR /app
 
 # Copy package files
-COPY package.json pnpm-lock.yaml ./
+COPY package.json ./
+COPY pnpm-lock.yaml* ./
 
 # Install pnpm
 RUN npm install -g pnpm
 
-# Install dependencies
-RUN pnpm install --frozen-lockfile
+# Install dependencies with FontAwesome token
+ARG FONTAWESOME_TOKEN
+ENV FONTAWESOME_TOKEN=$FONTAWESOME_TOKEN
+
+# Create npmrc with FontAwesome Pro authentication
+RUN echo "# shamefully-hoist=true" > .npmrc && \
+    echo "strict-peer-dependencies=false" >> .npmrc && \
+    echo "" >> .npmrc && \
+    echo "# FontAwesome Pro Registry Configuration" >> .npmrc && \
+    echo "@fortawesome:registry=https://npm.fontawesome.com/" >> .npmrc && \
+    echo "//npm.fontawesome.com/:_authToken=${FONTAWESOME_TOKEN}" >> .npmrc
+
+RUN pnpm install
 
 # Copy source code
 COPY . .

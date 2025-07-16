@@ -1,16 +1,8 @@
 <template>
   <div class="list">
     <loading v-if="loading" @retry="$emit('retry')" />
-    <ul
-      v-else-if="loading === false && (items && items.length > 0)"
-      class="list-items"
-    >
-      <li
-        v-for="(item, idx) in items"
-        :key="item.id"
-        :data-index="idx"
-        :style="`--i: ${idx}`"
-      >
+    <ul v-else-if="loading === false && (items && items.length > 0)" class="list-items">
+      <li v-for="(item, idx) in items" :key="item.id" :data-index="idx" :style="`--i: ${idx}`">
         <header>
           <div class="title-wrap">
             <h3 class="title">
@@ -25,10 +17,7 @@
               </span>
             </h4>
           </div>
-          <div
-            v-if="item.tier"
-            class="tier"
-          >
+          <div v-if="item.tier" class="tier">
             {{ item.tier }}
           </div>
         </header>
@@ -37,14 +26,10 @@
             <h4 class="section-title">
               Scaling
             </h4>
-            <ul v-if="item.scaling && Object.entries(item.scaling).length > 0">
-              <li
-                v-for="(value, stat) in item.scaling"
-                :key="stat"
-                v-if="value !== '-'"
-              >
+            <ul v-if="item.scaling && Object.keys(item.scaling).length > 0">
+              <li v-for="[stat, value] in getObjectEntries(item.scaling)" :key="stat" v-if="value !== '-'">
                 <h5 class="scaling-label">
-                  {{ stat.charAt(0).toUpperCase() + stat.slice(1) }}
+                  {{ String(stat).charAt(0).toUpperCase() + String(stat).slice(1) }}
                 </h5>
                 <p class="scaling-value">
                   {{ value }}
@@ -59,19 +44,12 @@
             <h4 class="section-title">
               Requirements
             </h4>
-            <div
-              v-if="item.requirements && Object.entries(item.requirements).length > 0"
-              class="requirements"
-            >
+            <div v-if="item.requirements && Object.keys(item.requirements).length > 0" class="requirements">
               <ul>
-                <li
-                  v-for="(value, stat) in item.requirements"
-                  :key="stat"
-                  class="requirement"
-                  v-if="value > 0"
-                >
+                <li v-for="[stat, value] in getObjectEntries(item.requirements)" :key="stat" class="requirement"
+                  v-if="value > 0">
                   <span class="requirement-label">
-                    {{ stat.charAt(0).toUpperCase() + stat.slice(1) }}
+                    {{ String(stat).charAt(0).toUpperCase() + String(stat).slice(1) }}
                   </span>
                   <span class="requirement-value">
                     {{ value }}
@@ -87,22 +65,12 @@
             <h4 class="section-title">
               Stats
             </h4>
-            <div
-              v-if="item.stats && Object.entries(item.stats).length > 0"
-              class="stats"
-            >
+            <div v-if="item.stats && Object.keys(item.stats).length > 0" class="stats">
               <ul>
-                <li
-                  v-for="(value, stat) in item.stats"
-                  :key="stat"
-                  class="stat"
-                  v-if="value > 0 || stat === 'critical'"
-                >
+                <li v-for="[stat, value] in getObjectEntries(item.stats)" :key="stat" class="stat"
+                  v-if="value > 0 || stat === 'critical'">
                   <span>
-                    <fa
-                      v-if="iconHandler(stat).length > 0"
-                      :icon="iconHandler(stat)"
-                    />
+                    <fa v-if="iconHandler(String(stat)).length > 0" :icon="iconHandler(String(stat))" />
                   </span>
                   <span :class="{ 'is-null': value === 0 }">
                     {{ value }}
@@ -126,45 +94,33 @@
 <script setup lang="ts">
 import Empty from './Empty.vue'
 import Loading from './Loading.vue'
+import type { Weapon } from '../types'
 
-defineProps({
-  items: {
-    type: Object,
-    required: false,
-  },
-  loading: {
-    type: Boolean,
-    default: true,
-  },
+withDefaults(defineProps<{
+  items?: Weapon[]
+  loading?: boolean
+}>(), {
+  loading: true,
+  items: () => []
 })
 
-const iconHandler = (name: String | Number) => {
-  let icon: String | Number = name !== undefined ? name : ''!
-
-  switch(name.toString().toLowerCase()) {
-    case 'weight' :
-      icon = 'weight-hanging'
-      break
-    case 'physical' :
-      icon = 'sword'
-      break
-    case 'magic' :
-      icon = 'wand-magic-sparkles'
-      break
-    case 'fire' : 
-      icon = 'fire'
-      break
-    case 'light' :
-      icon = 'lightbulb'
-      break
-    case 'holy' :
-      icon = 'book-bible'
-      break
-    default :
-      icon = ''
+const iconHandler = (name: string) => {
+  let icon: string = name !== undefined ? name : ''
+  switch (name.toLowerCase()) {
+    case 'weight': icon = 'weight-hanging'; break
+    case 'physical': icon = 'sword'; break
+    case 'magic': icon = 'wand-magic-sparkles'; break
+    case 'fire': icon = 'fire'; break
+    case 'light': icon = 'lightbulb'; break
+    case 'holy': icon = 'book-bible'; break
+    default: icon = ''
   }
-
   return ['fasr', icon]
+}
+
+// Helper function to get object entries with proper typing
+const getObjectEntries = <T extends Record<string, any>>(obj: T): [string, T[keyof T]][] => {
+  return Object.entries(obj) as [string, T[keyof T]][]
 }
 </script>
 

@@ -66,7 +66,7 @@ const pageSize: Ref = ref<Number>(12)
 const pageNumber: Ref = ref<Number>(0)
 
 // Update API endpoint to local backend
-const api = 'http://localhost:8080/api'
+const api = 'http://localhost:7342/api'
 const categoriesEndpoint = `${api}/categories`
 
 const filteredItems = computed(() => {

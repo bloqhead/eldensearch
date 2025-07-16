@@ -31,6 +31,24 @@ A comprehensive weapon database and search application for Elden Ring, featuring
 - Node.js 18+ and pnpm (for frontend)
 - Go 1.21+ (for backend)
 - Docker (optional)
+- FontAwesome Pro subscription (for Pro icons)
+
+### Environment Variables
+
+Create a `.env` file in the project root with the following variables:
+
+```bash
+# FontAwesome Pro Package Token (required for Pro icons)
+# Get your token from: https://fontawesome.com/account
+FONTAWESOME_TOKEN=your-fontawesome-pro-token-here
+
+# Backend Configuration
+PORT=7342
+GIN_MODE=release
+
+# Frontend Configuration
+VITE_API_URL=http://localhost:7342
+```
 
 ### Backend Setup
 
@@ -53,12 +71,22 @@ The API will be available at `http://localhost:8080`
 
 ### Frontend Setup
 
-1. Install dependencies:
+1. Set your FontAwesome Pro token:
+   ```bash
+   export FONTAWESOME_TOKEN="your-fontawesome-pro-token-here"
+   ```
+
+2. Run the setup script (recommended):
+   ```bash
+   ./setup.sh
+   ```
+
+   Or install dependencies manually:
    ```bash
    pnpm install
    ```
 
-2. Start the development server:
+3. Start the development server:
    ```bash
    pnpm dev
    ```
@@ -67,18 +95,28 @@ The application will be available at `http://localhost:5173`
 
 ### Docker Deployment
 
-1. Build and run the backend:
+1. Set your FontAwesome Pro token as an environment variable:
    ```bash
-   cd backend
-   docker build -t elden-ring-api .
-   docker run -p 8080:8080 elden-ring-api
+   export FONTAWESOME_TOKEN="your-fontawesome-pro-token-here"
    ```
 
-2. Build and run the frontend:
+2. Build and run all services:
    ```bash
-   pnpm build
-   # Serve the dist folder with your preferred web server
+   docker-compose up --build
    ```
+
+   Or build and run individual services:
+   ```bash
+   # Backend only
+   docker-compose up backend
+   
+   # Frontend only (requires FONTAWESOME_TOKEN)
+   docker-compose up frontend
+   ```
+
+The application will be available at:
+- Frontend: `http://localhost:3000`
+- Backend API: `http://localhost:7342`
 
 ## 📊 API Endpoints
 

@@ -87,7 +87,7 @@ A high-performance REST API for Elden Ring weapon data, built with Go and Gin fr
    go run main.go
    ```
 
-The API will be available at `http://localhost:8080`
+The API will be available at `http://localhost:7342`
 
 ### Docker Deployment
 
