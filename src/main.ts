@@ -18,7 +18,7 @@ import {
   faSwords,
   faWandMagicSparkles, // magic
   faWeightHanging, // weight
-} from '@fortawesome/sharp-regular-svg-icons'
+} from '@fortawesome/sharp-solid-svg-icons'
 
 /* add icons to the library */
 library.add(
